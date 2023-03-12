@@ -7,7 +7,7 @@
 * 能够存储用户历史消息、显示Tex公式的ChatGPT聊天页面
 * 在线聊天室（待开发）
 
-部署实例演示：featherwriting.blog
+部署实例演示：<featherwriting.blog>
 
 ## 使用组件
 ### 前端
