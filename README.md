@@ -7,7 +7,7 @@
 * 能够存储用户历史消息、显示Tex公式的ChatGPT聊天页面
 * 在线聊天室（待开发）
 
-部署实例演示：<featherwriting.blog>
+部署实例演示：<http://www.featherwriting.blog>
 
 ## 使用组件
 ### 前端
@@ -20,7 +20,6 @@
 * Flask框架及其扩展
 
 ## 安装
-git到本地并运行__init__.py即可使用
-在服务器部署可以配合mod_wsgi与Apache使用
+git到本地并运行__init__.py即可使用，在服务器部署可以配合mod_wsgi与Apache使用
 
 注意：若要使用chatgpt功能，请在chat.py中填写自己的api_key与organization（见openai官网）
