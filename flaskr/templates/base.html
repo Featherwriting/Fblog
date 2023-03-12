@@ -1,0 +1,158 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>Featherwriting的博客-{% block title %}{% endblock %} </title>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-warning alert-dismissible fade show" role="alert" style="margin-bottom: 0rem">
+                <span class="alert-inner--icon"><i class="fas fa-exclamation"></i></span>
+                <span class="alert-inner--text">{{ message }}</span>
+                <button type="button" class="undo" aria-label="Undo">关闭</button>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+            {% endfor %}
+          {% endif %}
+        {% endwith %}
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Nunito:400,600,700,800|Roboto:400,500,700" rel="stylesheet"> 
+
+    <!-- Boomerang CSS (including Bootstrap) -->
+    <link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css">
+    <link type="text/css" href="../static/css/theme.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../static/css/chat.css">
+    <script src="../static/js/jquery-1.10.2.min.js"></script>
+    <link href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/simplemde/1.11.2/simplemde.min.js"></script>
+    <link rel="stylesheet" href="../static/vendor/fontawesome-free-6.3.0-web/css/fontawesome.css">
+    <link rel="stylesheet" href="../static/vendor/fontawesome-free-6.3.0-web/css/brands.css">
+    <link rel="stylesheet" href="../static/vendor/fontawesome-free-6.3.0-web/css/solid.css">
+
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary rounded">
+    <a class="navbar-brand" href="#">Featherwriting的博客</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_example_1" aria-controls="navbar_example_1" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbar_example_1">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/">主页 <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/create">文章</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbar_1_dropdown_1" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">小工具</a>
+                <div class="dropdown-menu" aria-labelledby="navbar_1_dropdown_1">
+                    <a class="dropdown-item" href="/chatgpt">ChatGPT聊天</a>
+                    <a class="dropdown-item" href="#">还在做</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">还在做</a>
+                </div>
+            </li>
+            <!--
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#">Disabled</a>
+            </li>
+            -->
+        </ul>
+
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link nav-link-icon" href="#"><i class="fas fa-cogs"></i></a>
+            </li>
+            <!--
+            <li class="nav-item dropdown">
+                <a class="nav-link nav-link-icon" href="#" id="navbar_1_dropdown_2" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-bell"></i></a>
+                <div class="dropdown-menu dropdown-menu-right dropdown-menu-xl py-0">
+                    <div class="py-3 px-3">
+                        <h5 class="heading h6 mb-0">Notifications</h5>
+                    </div>
+                    <div class="list-group">
+                        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                            <div class="list-group-img">
+                                <span class="avatar bg-purple">JD</span>
+                            </div>
+                            <div class="list-group-content">
+                                <div class="list-group-heading">Johnyy Depp <small>10:05 PM</small></div>
+                                <p class="text-sm">Lorem ipsum dolor sit amet consectetur adipiscing eiusmod tempor</p>
+                            </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                            <div class="list-group-img">
+                                <span class="avatar bg-pink">TC</span>
+                            </div>
+                            <div class="list-group-content">
+                                <div class="list-group-heading">Tom Cruise <small>10:05 PM</small></div>
+                                <p class="text-sm">Lorem ipsum dolor sit amet consectetur adipiscing eiusmod tempor</p>
+                            </div>
+                        </a>
+                        <a href="#" class="list-group-item list-group-item-action d-flex align-items-center">
+                            <div class="list-group-img">
+                                <span class="avatar bg-blue">WS</span>
+                            </div>
+                            <div class="list-group-content">
+                                <div class="list-group-heading">Will Smith <small>10:05 PM</small></div>
+                                <p class="text-sm">Lorem ipsum dolor sit amet consectetur adipiscing eiusmod tempor</p>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="py-3 text-center">
+                        <a href="#" class="link link-sm link--style-3">View all notifications</a>
+                    </div>
+                </div>
+            </li>
+            -->
+            <li class="nav-item dropdown">
+                {% if g.user != None %}
+                <a class="nav-link nav-link-icon" href="#" id="navbar_1_dropdown_3" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fas fa-user"></i></a>
+
+                <div class="dropdown-menu dropdown-menu-right">
+                    <h6 class="dropdown-header">User menu</h6>
+                    <a class="dropdown-item" href="#">
+                        <span class="float-right badge badge-primary">4</span>
+                        <i class="fas fa-envelope text-primary"></i>还在做
+                    </a>
+                    <a class="dropdown-item" href="#">
+                        <i class="fas fa-cog text-primary"></i>还在做
+                    </a>
+                    <div class="dropdown-divider" role="presentation"></div>
+                    <a class="dropdown-item" href="/logout">
+                        <i class="fas fa-sign-out-alt text-primary"></i>注销
+                    </a>
+                </div>
+                {% else %}
+                <a class="nav-link nav-link-icon" href="/login" id="navbar_1_dropdown_3" role="button"><i class="fas fa-user"></i></a>
+                {% endif %}
+            </li>
+        </ul>
+
+    </div>
+</nav>
+    <main class="main">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Bootstrap JS -->
+    <script src="../static/vendor/jquery/jquery.min.js"></script>
+    <script src="../static/vendor/popper/popper.min.js"></script>
+    <script src="../static/js/bootstrap/bootstrap.min.js"></script>
+
+    <!-- FontAwesome 5
+    <script src="../static/vendor/fontawesome/js/all.js"></script>-->
+
+    <!-- Boomerang JS -->
+    <script src="../static/js/theme.js"></script>
+
+
+
+    
+</body>
+</html>

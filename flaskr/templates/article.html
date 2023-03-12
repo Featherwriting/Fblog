@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}文章-{{post.title}}{% endblock %}
+{% block content %}
+
+
+<div class="content-inner content-docs">
+    <div class="container">
+        <div class="col-12">
+            <br>
+            <h1>{{post.title}}</h1>
+            <br>
+            <div class="col-6">
+                <span class="badge badge-dot mr-4">
+                <i class="bg-green"></i> {{ post.time }}
+                </span>
+                <span class="badge badge-dot mr-4">
+                <i class="bg-green"></i> Posted by {{ post.author_id }}
+                </span>
+            </div>
+
+            <hr>
+            <br>
+            <div>
+                {{post.content|markdown}}
+            </div>
+            {% for comment in comments %}
+                <div class="card" id="comment">
+                    <div class="card-body">
+                        <h6 class="heading heading-5 strong-600">{{ user.username }}</h6>
+                        <h6 class="text-muted mb-4">{{ comment.time }}</h6>
+                        <p class="card-text">{{ comment.content }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+            <textarea id="Comment"></textarea>
+
+            <button type="button" class="btn btn-primary" onclick="senddata()">提交</button>
+            <script>
+                var simplemde = new SimpleMDE({
+                    element: document.getElementById("Comment"),
+                    autoDownloadFontAwesome: false
+                });
+
+                function senddata() {
+                    $.ajax({
+                    url: '/post/{{ post.id }}',
+                    type: 'post',
+                    data: {"content": simplemde.value()},
+                    success: function (res) {
+                        console.log(res);
+                    }
+                    })
+                    setTimeout(refresh, 1000);
+
+                }
+
+                function refresh() {
+                    window.location.reload("#comment");
+                }
+
+
+            </script>
+
+    </div>
+
+
+</div>
+
+
+{% endblock %}

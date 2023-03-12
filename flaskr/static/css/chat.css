@@ -1,0 +1,80 @@
+#userInput{
+	border-bottom: 20px;
+}
+.userText {
+    color: white;
+    font-family: 'Segoe UI';
+    font-size: 14px;
+    text-align: right;
+    line-height: 30px;
+}
+
+    .userText span {
+        background-color: #009688;
+        padding: 10px;
+        border-radius: 2px;
+    }
+
+.assistantText {
+    color: white;
+    font-family: 'Segoe UI';
+    font-size: 14px;
+    text-align: left;
+    line-height: 30px;
+}
+
+    .assistantText span {
+        background-color: #343541;
+        padding: 10px;
+        border-radius: 2px;
+    }
+
+.frame{
+	color: white;
+		width: 100%;
+		float: left;
+		position: relative;
+		padding: 0 30px 15px 5px;
+	}
+.frameRight{
+	color: white;
+	width: 100%;
+		float: left;
+		position: relative;
+		padding: 0 5px 15px 30px;
+}
+	.triangle{
+		width:0;
+		height:0;
+		border-top:5px solid transparent;
+		border-bottom:5px solid transparent;
+		border-right:6px solid #343541;
+		position: absolute;
+		left: 0;
+		top: 6px;
+	}
+	.triangleRight{
+		width:0;
+		height:0;
+		border-top:5px solid transparent;
+		border-bottom:5px solid transparent;
+		border-left:6px solid #009688;
+		position: absolute;
+		right: 0;
+		top: 6px;
+
+	}
+	.rotation{
+		float: left;
+		padding: 5px 10px;
+		background-color: #343541;
+		font-size: 14px;
+		border-radius: 2px;
+	}
+	.rotationRight{
+		float: right;
+		padding: 5px 10px;
+		background-color: #009688;
+		font-size: 14px;
+		border-radius: 2px;
+	}

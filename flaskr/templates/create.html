@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}文章-新建{% endblock %}
+{% block content %}
+<div class="content-inner content-docs">
+    <div class="container"><br><br>
+  <form method="post">
+    <div class="form-group">
+        <label>标题</label>
+        <input type="text" class="form-control" name="title" id="title" value="{{ request.form['title'] }}" required>
+    </div>
+    <div class="form-group">
+        <label>正文</label>
+        <textarea class="form-control" placeholder="请用markdown格式输入正文" rows="20" name="body" id="create">{{ request.form['body'] }}</textarea>
+    </div>
+    <input class="btn btn-primary"  type="submit" value="Save">
+  </form>
+</div>
+</div>
+<script>
+    var simplemde = new SimpleMDE({
+                    element: document.getElementById("create"),
+                    autoDownloadFontAwesome: false
+                });
+</script>
+{% endblock %}

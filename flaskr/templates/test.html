@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="https://cdn.bootcss.com/simplemde/1.11.2/simplemde.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../static/vendor/fontawesome/css/font-awesome.css" />
+    <script src="https://cdn.jsdelivr.net/simplemde/1.11.2/simplemde.min.js"></script>
+</head>
+<body>
+    <textarea id="Comment"></textarea>
+    <script>
+                var simplemde = new SimpleMDE({
+                    element: document.getElementById("Comment"),
+                    autoDownloadFontAwesome: true
+                });
+    </script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}工具-Chatgpt{% endblock %}
+{% block content %}
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+  svg: {
+    fontCache: 'global'
+  }});
+</script>
+<script type="text/javascript"
+  src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+    <script>
+
+    </script>
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <br />
+    <div class="container">
+
+        <div class="row">
+            <div class="col-sm-12">
+
+                <div id="messagebox" class="border border-white">
+                </div>
+                <div id="userInput">
+                    <input id="userMessage" class="form-control" type="text" name="msg" placeholder="输入你想说的话">
+                    <div class="row">
+                        <div class="col">
+                            <input id="sendButton" class="btn btn-success btn-block" type="submit" value="发送">
+                        </div>
+                        <div class="col">
+                            <button type="button" class="btn btn-primary btn-block" onclick="reset()">重置聊天历史</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function getCompletion() {
+                let userText = $("#userMessage").val();
+                let userHtml = '<div class="frameRight"><div class="triangleRight"></div><span class="rotationRight">' + userText + '</span></div><br>';
+                $("#userMessage").val("");
+                $("#messagebox").append(userHtml);
+                document.getElementById('userInput').scrollIntoView({ block: 'start', behavior: 'smooth' });
+                let loading = '<div class="frame"><div class="triangle"></div><span class="rotation"><div id="load" class="spinner-border spinner-border-sm" role="status"></div></span></div><br>';
+                $("#messagebox").append(loading);
+                $.get("/get", { msg: userText }).done(function (data) {
+                    $("#load").replaceWith(data)
+                    document.getElementById('userInput').scrollIntoView({ block: 'start', behavior: 'smooth' });
+                    MathJax.Hub.Queue(["Typeset", MathJax.Hub]);
+                });
+            }
+            $("#userMessage").keypress(function (e) {
+                // allows message to be sent with enter key
+                if (e.which == 13) {
+                    getCompletion();
+                }
+            });
+            // allows message to be sent by clicking the Send button
+            $("#sendButton").click(function () {
+                getCompletion();
+            });
+        </script>
+        <script type="text/javascript">
+           function reset()
+           {
+               $.ajax(
+              {
+                 type: "POST",
+                 url: "/chatgpt",
+                 dataType: "html",
+              });
+               $("#messagebox").empty()
+           }
+        </script>
+    </div>
+    <br>
+    <br>
+{% endblock %}
