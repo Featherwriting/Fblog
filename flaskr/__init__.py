@@ -1,5 +1,7 @@
 import os
-
+from  flask_babel import Babel
+from flask_admin import Admin
+from flask_admin.contrib.sqla import ModelView
 from flaskext.markdown import Markdown
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
@@ -7,11 +9,13 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import datetime
 
 app = Flask(__name__, instance_relative_config=True)
+app.config['FLASK_ADMIN_SWATCH'] = 'cerulean'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///db.sqlite3'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-
+admin = Admin(app, name="microblog")
 db = SQLAlchemy(app)
-
+babel=Babel()
+babel.init_app(app)
 class Article(db.Model):
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     author_id = db.Column(db.String(80), unique=True, nullable=False)
@@ -61,12 +65,15 @@ try:
 except OSError:
     pass
 
+admin.add_view(ModelView(User, db.session))
+admin.add_view(ModelView(Article, db.session))
+admin.add_view(ModelView(Comment, db.session))
+
+
 from flaskr import blog, chat, auth
 
-''' 首次运行时测试与新建数据库
 @app.route("/hello")
 def hello():
     with app.app_context():
         db.create_all()
     return "Hello, World!"
-'''
