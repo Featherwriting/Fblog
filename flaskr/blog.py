@@ -5,7 +5,7 @@ from flaskr import app, Article, Comment,User
 from flaskr import db
 import functools
 
-from flaskr.auth import login_required
+from flaskr.auth import login_required, creator_required
 
 
 @app.route('/')
@@ -19,32 +19,34 @@ def home():
 def article(id):
     if request.method == 'POST':
         error = None
-        print(g.user)
         if g.user is None:
-            print("yesy")
             error = '请先登录才可以发表评论'
         if request.form['content'] == '':
             error = '评论不能为空'
 
 
         if error is None:
-            new_comment = Comment(article_id=id, content=request.form['content'], author_id=g.user.id)
+            username = User.query.get(g.user.id).username
+            new_comment = Comment(article_id=id, content=request.form['content'], author_id=g.user.id, username=username)
             db.session.add(new_comment)
             db.session.commit()
         else:
             flash(error)
     post = Article.query.get(id)
     comments = Comment.query.filter(Comment.article_id == id).all()
-    return render_template('article.html', title="Post", post=post, comments=comments, user=g.user)
+    alluser = User.query.all()
+    return render_template('article.html', title="Post", post=post, comments=comments, user=g.user, alluser = alluser)
 
 @app.route('/create', methods=('GET', 'POST'))
 @login_required
+@creator_required
 def create():
     if request.method == 'POST':
         author_id = g.user.username
         title = request.form['title']
-        body = request.form['body']
-        new_article = Article(author_id = author_id, title = title, content =body)
+        body = request.form.get('body')
+        summary = request.form['sum']
+        new_article = Article(author_id = author_id, title = title, content =body, summary = summary)
 
         error = None
 

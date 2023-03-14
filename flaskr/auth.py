@@ -54,6 +54,28 @@ def login_required(view):
 
     return wrapped_view
 
+def admin_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        user_id = session.get('user_id')
+        if g.user.type is None or g.user.type != 0:
+            return redirect('/')
+
+        return view(**kwargs)
+
+    return wrapped_view
+
+
+def creator_required(view):
+    @functools.wraps(view)
+    def wrapped_view(**kwargs):
+        user_id = session.get('user_id')
+        if g.user.type is None or g.user.type > 1:
+            return redirect('/')
+
+        return view(**kwargs)
+
+    return wrapped_view
 
 @app.route('/reg', methods=('GET', 'POST'))
 def reg():
@@ -74,7 +96,7 @@ def reg():
                 new_user.set_password(password)
                 db.session.add(new_user)
                 db.session.commit()
-                return redirect('login.html')
+                return redirect('/login')
             else:
                 error = '用户名已存在'
 

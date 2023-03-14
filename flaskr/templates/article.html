@@ -23,17 +23,24 @@
             <div>
                 {{post.content|markdown}}
             </div>
+        <br>
+        <br>
+        <br>
+        <br>
+        <hr>
+        <h3>评论</h3>
             {% for comment in comments %}
                 <div class="card" id="comment">
                     <div class="card-body">
-                        <h6 class="heading heading-5 strong-600">{{ user.username }}</h6>
+                        <h6 class="heading heading-5 strong-600">{{ comment.username }}</h6>
                         <h6 class="text-muted mb-4">{{ comment.time }}</h6>
                         <p class="card-text">{{ comment.content }}</p>
                     </div>
                 </div>
             {% endfor %}
         </div>
-            <textarea id="Comment"></textarea>
+
+            <textarea id="Comment">请先登录再评论</textarea>
 
             <button type="button" class="btn btn-primary" onclick="senddata()">提交</button>
             <script>
